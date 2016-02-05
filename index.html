@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Datepicker for Bootstrap, from Twitter</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.1/css/bootstrap-datepicker.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
+  <style>
+    .container {
+      background: #fff;
+    }
+
+    .alert-date-range {
+      display: none;
+    }
+  </style>
+  <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+  <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+  <div class="container">
+    <div class="page-header">
+      <h1>Datepicker for Bootstrap <small>bootstrap-datepicker.js</small></h1>
+    </div>
+
+    <div class="alert alert-error alert-date-range">
+      <strong>Oh snap!</strong>
+    </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Start date
+            <div class="input-append date "  />
+            <input  class="span2 start-date" size="16" type="text" readonly required>
+            <span class="add-on"><i class="icon-calendar"></i></span>
+
+          </th>
+          <th>End date
+            <div class="input-append date" />
+            <input class="span2 end-date" size="16" type="text" readonly required>
+            <span class="add-on"><i class="icon-calendar"></i></span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="container">
+    <div class='col-md-5'>
+        <div class="form-group">
+            <div class='input-group date' id='datetimepicker6'>
+                <input type='text' class="form-control" />
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class='col-md-5'>
+        <div class="form-group">
+            <div class='input-group date' id='datetimepicker7'>
+                <input type='text' class="form-control" />
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+  <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.1/js/bootstrap-datepicker.js"></script>
+
+  <script type="text/javascript" src="bower_components/moment/min/moment.min.js"></script>
+  <script type="text/javascript" src="bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+
+  <script>
+    $(function() {
+
+      $(".start-date").datepicker({
+        startDate : '02/2016',
+        endDate : '07/2016',
+        format: "mm/yyyy",
+    		minViewMode: 1
+    		}).on('changeDate', function(ev){
+    			$(".end-date").datepicker('setStartDate',ev.date);
+    		});
+        // $(".start-date").datepicker('setDate', new Date());
+
+    	$(".end-date").datepicker({
+        format: "mm/yyyy",
+        startDate : '02/2016',
+        endDate : '07/2016',
+    		minViewMode: 1
+      }).on('changeDate', function(ev){
+        var date = $(".start-date").datepicker('getEndDate');
+        // $(".start-date").datepicker('setEndDate',ev.date);
+        $(".start-date").datepicker('update', date);
+      });
+
+
+      $('#datetimepicker6').datetimepicker({
+        viewMode:'months',
+        format: 'MM/YYYY',
+        minDate: new Date('02/28/2016'),
+        maxDate: new Date('07/28/2016'),
+      });
+      $('#datetimepicker7').datetimepicker({
+          format: 'MM/YYYY',
+          viewMode:'months',
+          minDate: new Date('02/28/2016'),
+          maxDate: new Date('07/28/2016'),
+          useCurrent: false //Important! See issue #1075
+      });
+      $("#datetimepicker6").on("dp.change", function (e) {
+          $('#datetimepicker7').data("DateTimePicker").minDate(e.date);
+      });
+      $("#datetimepicker7").on("dp.change", function (e) {
+          $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
+      });
+
+    });
+
+  </script>
+  </script>
+</body>
+
+</html>
